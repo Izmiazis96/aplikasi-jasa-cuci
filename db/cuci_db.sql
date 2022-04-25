@@ -93,9 +93,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `nama`, `alamat`, `hp`, `level`) VALUES
-(1, 'rolando', 'e80d4ab77eb18a4ca350157fd487d7e2', 'Rolando', 'Dadap', '08126464', 1),
-(2, 'ismi', '0192023a7bbd73250516f069df18b500', 'ismi azis', 'cengkareng, jakarta barat', '0895334929462', 1),
-(3, 'agnes', '7067821a488137b801cd31ee38fcce05', 'Agnes Perma', 'kalideres, jakarta barat', '089521214343', 2);
+(1, 'ismi', '0192023a7bbd73250516f069df18b500', 'ismi azis', 'cengkareng, jakarta barat', '0895334929462', 1),
+(2, 'agnes', '7067821a488137b801cd31ee38fcce05', 'Agnes Perma', 'kalideres, jakarta barat', '089521214343', 2);
 
 --
 -- Indexes for dumped tables
