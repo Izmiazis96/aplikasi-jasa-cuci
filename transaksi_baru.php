@@ -60,7 +60,7 @@ if( empty( $_SESSION['id_user'] ) ){
 	<div class="form-group">
 		<label for="jenis" class="col-sm-2 control-label">Jenis Kendaraan</label>
 		<div class="col-sm-3">
-			<select name="jenis" class="form-control" id="jenis"  onchange="price()" required>
+			<select name="jenis" class="form-control" id="jenis" required>
 				<option value="" disable>--- Pilih Jenis Kendaraan ---</option>
 			<?php
 

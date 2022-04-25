@@ -45,7 +45,7 @@ if( empty( $_SESSION['id_user'] ) ){
   </head>
 
   <body>
-
+   	<!-- memanggil section menu -->
     <?php include "menu.php"; ?>
 
     <div class="container">
@@ -94,6 +94,7 @@ if( empty( $_SESSION['id_user'] ) ){
 	}
 	?>
     </div> <!-- /container -->
+	<?php include "footer.php"; ?>
 
 
     <!-- Bootstrap core JavaScript, Placed at the end of the document so the pages load faster -->
