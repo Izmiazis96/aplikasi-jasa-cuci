@@ -60,13 +60,13 @@ if( empty( $_SESSION['id_user'] ) ){
 	<div class="form-group">
 		<label for="jenis" class="col-sm-2 control-label">Jenis Kendaraan</label>
 		<div class="col-sm-3">
-			<select name="jenis" class="form-control" id="jenis" required>
+			<select name="jenis" class="form-control" id="jenis" onchange="getHarga(this.value)" required>
 				<option value="" disable>--- Pilih Jenis Kendaraan ---</option>
 			<?php
 
 				$q = mysqli_query($koneksi, "SELECT * FROM biaya");
 				while($data = mysqli_fetch_array($q)){
-					echo '<option value="'.$data['biaya'].'">'.$data['jenis'].'</option>';
+					echo '<option value="'.$data['id_biaya'].'">'.$data['jenis'].'</option>';
 				}
 
 			?>
@@ -115,13 +115,28 @@ if( empty( $_SESSION['id_user'] ) ){
 }
 ?>
 <script>
+	function getHarga(val)
+	{
+		//console.log(val);
+		$.ajax({
+			type: "POST",
+			url: "get_harga.php",
+			data: "id_biaya="+val,
+			success: function(data){
+				var data = JSON.parse(data);
+				$("#biaya").val(data[2]);
+				//console.log(data[2]);
+			}
+		});
+
+	}
 
   $(document).ready(function(){
 
-    $("#jenis").change(function(){
-      var biaya = $(this).val();
-      $("#biaya").val(biaya);
-    });
+    // $("#jenis").change(function(){
+    //   var biaya = $(this).val();
+    //   $("#biaya").val(biaya);
+    // });
 
     $("#bayar").keyup(function(){
         var biaya = $("#biaya").val();
@@ -130,11 +145,9 @@ if( empty( $_SESSION['id_user'] ) ){
         $("#total").val(biaya);
     });
 
-	// function price() 
-	// {
-	// 	var tes = document.getElementById("jenis").value;
-	// 	document.getElementById("biaya").value=tes;
-	// }
+	
+
+	
 
   });
 </script>

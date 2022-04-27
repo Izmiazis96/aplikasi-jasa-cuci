@@ -17,10 +17,11 @@
 <?php
 
     $id_transaksi = $_REQUEST['id_transaksi'];
+    // komen dulu sewaktu - waktu kepake  
+    // $sql = mysqli_query($koneksi, "SELECT no_nota, nama, jenis, bayar, kembali, total, tanggal, id_user FROM transaksi WHERE id_transaksi='$id_transaksi'");
 
-    $sql = mysqli_query($koneksi, "SELECT no_nota, nama, jenis, bayar, kembali, total, tanggal, id_user FROM transaksi WHERE id_transaksi='$id_transaksi'");
-
-    list($no_nota, $nama, $jenis, $bayar, $kembali, $total, $tanggal, $id_user) = mysqli_fetch_array($sql);
+    $sql = mysqli_query($koneksi, "SELECT a.no_nota, a.nama, a.jenis, a.bayar, a.kembali, a.total, a.tanggal, a.id_user, b.jenis AS 'nama_kendaraan' FROM transaksi a JOIN biaya b ON a.jenis = b.id_biaya WHERE a.id_transaksi='$id_transaksi'");
+    list($no_nota, $nama, $jenis, $bayar, $kembali, $total, $tanggal, $id_user, $nama_kendaraan) = mysqli_fetch_array($sql);
 
     echo '
         <center><h3>Cuci Bersih Mobil Motor</h3></center>
@@ -41,7 +42,7 @@
 
            <tr>
              <td>'.$nama.'</td>
-             <td>'.$jenis.'</td>
+             <td>'.$nama_kendaraan.'</td>
              <td>RP. '.number_format($bayar).'</td>
              <td>RP. '.number_format($kembali).'</td>
              <td>RP. '.number_format($total).'</td>

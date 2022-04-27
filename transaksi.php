@@ -46,7 +46,7 @@ if( empty( $_SESSION['id_user'] ) ){
 				 <tbody>';
 
 			//skrip untuk menampilkan data dari database
-		 	$sql = mysqli_query($koneksi, "SELECT * FROM transaksi");
+		 	$sql = mysqli_query($koneksi, "SELECT a.*, b.*, b.jenis AS nama_kendaraan FROM transaksi a LEFT JOIN biaya b ON a.jenis = b.id_biaya");
 		 	if(mysqli_num_rows($sql) > 0){
 		 		$no = 0;
 
@@ -58,7 +58,7 @@ if( empty( $_SESSION['id_user'] ) ){
 					 <td>'.$no.'</td>
 					 <td>'.$row['no_nota'].'</td>
 					 <td>'.$row['nama'].'</td>
-					 <td>'.$row['jenis'].'</td>
+					 <td>'.$row['nama_kendaraan'].'</td>
 					 <td>RP. '.number_format($row['total']).'</td>
 					 <td>'.date("d M Y", strtotime($row['tanggal'])).'</td>
 					 <td>

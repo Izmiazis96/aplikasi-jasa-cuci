@@ -27,8 +27,8 @@ if( empty( $_SESSION['id_user'] ) ){
 	} else {
 
 		$id_transaksi = $_REQUEST['id_transaksi'];
-
-		$sql = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE id_transaksi='$id_transaksi'");
+		// SELECT a.*, b.*, b.jenis AS nama_kendaraan FROM transaksi a LEFT JOIN biaya b ON a.jenis = b.id_biaya WHERE a.id_transaksi = '$id_transaksi'
+		$sql = mysqli_query($koneksi, "SELECT a.*, b.*, b.jenis AS nama_kendaraan FROM transaksi a LEFT JOIN biaya b ON a.jenis = b.id_biaya WHERE a.id_transaksi = '$id_transaksi'");
 		while($row = mysqli_fetch_array($sql)){
 
 ?>
@@ -46,19 +46,27 @@ if( empty( $_SESSION['id_user'] ) ){
 		<label for="jenis" class="col-sm-2 control-label">Jenis Kendaraan</label>
 		<input type="hidden" name="id_transaksi" value="<?php echo $row['id_transaksi']; ?>">
 		<div class="col-sm-3">
-			<select name="jenis" class="form-control" required>
-				<option value="<?php echo $row['jenis']; ?>"><?php echo $row['jenis']; ?></option>
+			<select name="jenis" class="form-control" onchange="getHarga(this.value)" required >
+				<option value="<?php echo $row['jenis']; ?>"><?php echo $row['nama_kendaraan']; ?></option>
 
 			<?php
 
-				$q = mysqli_query($koneksi, "SELECT jenis FROM biaya");
-				while(list($jenis) = mysqli_fetch_array($q)){
-					echo '<option value="'.$jenis.'">'.$jenis.'</option>';
+				//$q = mysqli_query($koneksi, "SELECT jenis FROM biaya");
+				$q = mysqli_query($koneksi, "SELECT b.id_biaya, b.jenis AS nama_kendaraan, a.jenis AS jenis FROM biaya b LEFT JOIN transaksi a ON a.jenis = b.id_biaya");
+				while(list($jenis, $nama_kendaraan) = mysqli_fetch_array($q)){
+					echo '<option value="'.$jenis.'">'.$nama_kendaraan.'</option>';
 				}
 
 			?>
 
 			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="biaya" class="col-sm-2 control-label">Biaya</label>
+		<div class="col-sm-3">
+			<input type="number" class="form-control" id="biaya" name="biaya" value="" required readonly>
 		</div>
 	</div>
 	<div class="form-group">
@@ -97,3 +105,41 @@ if( empty( $_SESSION['id_user'] ) ){
 }
 }
 ?>
+
+<script>
+	function getHarga(val)
+	{
+		//console.log(val);
+		$.ajax({
+			type: "POST",
+			url: "get_harga.php",
+			data: "id_biaya="+val,
+			success: function(data){
+				var data = JSON.parse(data);
+				$("#biaya").val(data[2]);
+				//console.log(data[2]);
+			}
+		});
+
+	}
+
+  $(document).ready(function(){
+
+    // $("#jenis").change(function(){
+    //   var biaya = $(this).val();
+    //   $("#biaya").val(biaya);
+    // });
+
+    $("#bayar").keyup(function(){
+        var biaya = $("#biaya").val();
+        var bayar = $("#bayar").val();
+        $("#kembali").val(bayar - biaya);
+        $("#total").val(biaya);
+    });
+
+	
+
+	
+
+  });
+</script>

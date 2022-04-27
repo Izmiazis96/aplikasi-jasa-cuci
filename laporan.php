@@ -10,8 +10,8 @@ if( empty( $_SESSION['id_user'] ) ){
 	     $submit = $_REQUEST['submit'];
          $tgl1 = $_REQUEST['tgl1'];
          $tgl2 = $_REQUEST['tgl2'];
-
-		 $sql = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE tanggal BETWEEN '$tgl1' AND '$tgl2'");
+		 
+		 $sql = mysqli_query($koneksi, "SELECT a.*, b.*, b.jenis AS nama_kendaraan FROM transaksi a LEFT JOIN biaya b ON a.jenis = b.id_biaya WHERE tanggal BETWEEN '$tgl1' AND '$tgl2'");
 		 if(mysqli_num_rows($sql) > 0){
 			 $no = 0;
 
@@ -46,7 +46,7 @@ if( empty( $_SESSION['id_user'] ) ){
 			  <td>'.$no.'</td>
 			  <td>'.$row['no_nota'].'</td>
 			  <td>'.$row['nama'].'</td>
-			  <td>'.$row['jenis'].'</td>
+			  <td>'.$row['nama_kendaraan'].'</td>
 			  <td>RP. '.number_format($row['total']).'</td>
 			  <td>'.date("d M Y", strtotime($row['tanggal'])).'</td>';
 		 }
