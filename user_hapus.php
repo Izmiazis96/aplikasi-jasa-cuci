@@ -17,6 +17,7 @@ if(isset($_REQUEST['submit'])){
 
     $sql = mysqli_query($koneksi, "DELETE FROM user WHERE id_user='$id_user'");
     if($sql == true){
+        $_SESSION['success'] = '<strong>Yeaah</strong> Data berhasil di hapus.';
         header("Location: ./admin.php?hlm=user");
         die();
     }

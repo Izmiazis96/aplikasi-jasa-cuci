@@ -59,6 +59,7 @@
 			$_SESSION['nama'] = $nama;
 			$_SESSION['level'] = $level;
 
+            
 			header("Location: ./admin.php");
 			die();
 		} else {
@@ -77,6 +78,12 @@
 			echo '<div class="alert alert-warning alert-message">'.$err.'</div>';
             unset($_SESSION['err']);
 		}
+        if(isset($_SESSION['success'])){
+			$success = $_SESSION['success'];
+			echo '<div class="alert alert-success alert-message">'.$success.'</div>';
+            unset($_SESSION['success']);
+		}
+
 		?>
         <h2 class="form-signin-heading">Login Admin</h2>
         <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>

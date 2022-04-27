@@ -12,6 +12,7 @@ if(isset($_REQUEST['submit'])){
 
     $sql = mysqli_query($koneksi, "DELETE FROM transaksi WHERE id_transaksi='$id_transaksi'");
     if($sql == true){
+        $_SESSION['success'] = '<strong>Yeaah</strong> Transaksi berhasil di hapus.';
         header("Location: ./admin.php?hlm=transaksi");
         die();
     }

@@ -10,15 +10,17 @@ if( empty( $_SESSION['id_user'] ) ){
 
         $id_user = $_REQUEST['id_user'];
 		$level = $_REQUEST['level'];
+		$nama  = $_REQUEST['nama']; 
 
         if($id_user == 1){
             header("location: ./admin.php?hlm=user");
             die();
         }
 
-		$sql = mysqli_query($koneksi, "UPDATE user SET level='$level' WHERE id_user='$id_user'");
+		$sql = mysqli_query($koneksi, "UPDATE user SET nama='$nama',level='$level' WHERE id_user='$id_user'");
 
 		if($sql == true){
+			$_SESSION['success'] = '<strong>Yeaah</strong> Data berhasil di update.';
 			header('Location: ./admin.php?hlm=user');
 			die();
 		} else {
@@ -47,7 +49,7 @@ if( empty( $_SESSION['id_user'] ) ){
 	<div class="form-group">
 		<label for="nama" class="col-sm-2 control-label">Nama User</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control" id="nama" value="<?php echo $row['nama']; ?>" name="nama" placeholder="Nama User" readonly>
+			<input type="text" class="form-control" id="nama" value="<?php echo $row['nama']; ?>" name="nama" placeholder="Nama User" >
 		</div>
 	</div>
 	<div class="form-group">

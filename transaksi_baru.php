@@ -19,6 +19,7 @@ if( empty( $_SESSION['id_user'] ) ){
 		$sql = mysqli_query($koneksi, "INSERT INTO transaksi(no_nota, jenis, nama, bayar, kembali, total, tanggal, id_user) VALUES('$no_nota', '$jenis', '$nama', '$bayar', '$kembali', '$total', NOW(), '$id_user')");
 
 		if($sql == true){
+			$_SESSION['success'] = '<strong>SUKSES!</strong> Transaksi berhasil ditambahkan.';
 			header('Location: ./admin.php?hlm=transaksi');
 			die();
 		} else {

@@ -18,6 +18,7 @@ if( empty( $_SESSION['id_user'] ) ){
 		$sql = mysqli_query($koneksi, "INSERT INTO user(username, password, nama, alamat, hp, level) VALUES('$username', '$password', '$nama', '$alamat', '$hp', '$level')");
 
 		if($sql == true){
+			$_SESSION['success'] = '<strong>Yeaah</strong> Data berhasil di tambah.';
 			header('Location: ./admin.php?hlm=user');
 			die();
 		} else {

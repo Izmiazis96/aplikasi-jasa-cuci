@@ -14,6 +14,7 @@ if( empty( $_SESSION['id_user'] ) ){
 		$sql = mysqli_query($koneksi, "INSERT INTO biaya(jenis, biaya) VALUES('$jenis', '$biaya')");
 
 		if($sql == true){
+			$_SESSION['success'] = '<strong>SUKSES!</strong> Data berhasil ditambahkan.';
 			header('Location: ./admin.php?hlm=biaya');
 			die();
 		} else {

@@ -15,6 +15,7 @@ if( empty( $_SESSION['id_user'] ) ){
 		$sql = mysqli_query($koneksi, "UPDATE biaya SET jenis='$jenis', biaya='$biaya' WHERE id_biaya='$id_biaya'");
 
 		if($sql == true){
+			$_SESSION['success'] = '<strong>Yeaah!</strong> Data berhasil di update.';
 			header('Location: ./admin.php?hlm=biaya');
 			die();
 		} else {

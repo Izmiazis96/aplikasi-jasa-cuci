@@ -21,6 +21,12 @@ if( empty( $_SESSION['id_user'] ) ){
 		}
 	} else {
 
+		if(isset($_SESSION['success'])){
+			$success = $_SESSION['success'];
+			echo '<div class="alert alert-success alert-message">'.$success.'</div>';
+            unset($_SESSION['success']);
+		}
+
 		echo '
 
 			<div class="container">
@@ -79,3 +85,10 @@ if( empty( $_SESSION['id_user'] ) ){
 	}
 }
 ?>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(".alert-message").alert().delay(3000).slideUp('slow');
+</script>

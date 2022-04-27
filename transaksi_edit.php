@@ -19,6 +19,7 @@ if( empty( $_SESSION['id_user'] ) ){
 		$sql = mysqli_query($koneksi, "UPDATE transaksi SET jenis='$jenis', nama='$nama', bayar='$bayar', kembali='$kembali', total='$total', tanggal=NOW(), id_user='$id_user' WHERE id_transaksi='$id_transaksi'");
 
 		if($sql == true){
+			$_SESSION['success'] = '<strong>Yeaah</strong> Transaksi berhasil di update.';
 			header('Location: ./admin.php?hlm=transaksi');
 			die();
 		} else {
@@ -28,7 +29,7 @@ if( empty( $_SESSION['id_user'] ) ){
 
 		$id_transaksi = $_REQUEST['id_transaksi'];
 		// SELECT a.*, b.*, b.jenis AS nama_kendaraan FROM transaksi a LEFT JOIN biaya b ON a.jenis = b.id_biaya WHERE a.id_transaksi = '$id_transaksi'
-		$sql = mysqli_query($koneksi, "SELECT a.*, b.*, b.jenis AS nama_kendaraan FROM transaksi a LEFT JOIN biaya b ON a.jenis = b.id_biaya WHERE a.id_transaksi = '$id_transaksi'");
+		$sql = mysqli_query($koneksi, "SELECT a.*, b.id_biaya, b.jenis AS nama_kendaraan FROM transaksi a JOIN biaya b ON a.jenis = b.id_biaya WHERE a.id_transaksi = '$id_transaksi'");
 		while($row = mysqli_fetch_array($sql)){
 
 ?>
@@ -52,7 +53,7 @@ if( empty( $_SESSION['id_user'] ) ){
 			<?php
 
 				//$q = mysqli_query($koneksi, "SELECT jenis FROM biaya");
-				$q = mysqli_query($koneksi, "SELECT b.id_biaya, b.jenis AS nama_kendaraan, a.jenis AS jenis FROM biaya b LEFT JOIN transaksi a ON a.jenis = b.id_biaya");
+				$q = mysqli_query($koneksi, "SELECT DISTINCT b.id_biaya, b.jenis AS nama_kendaraan, a.jenis AS jenis FROM biaya b LEFT JOIN transaksi a ON a.jenis = b.id_biaya");
 				while(list($jenis, $nama_kendaraan) = mysqli_fetch_array($q)){
 					echo '<option value="'.$jenis.'">'.$nama_kendaraan.'</option>';
 				}
