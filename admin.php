@@ -76,20 +76,29 @@ if( empty( $_SESSION['id_user'] ) ){
 	?>
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Selamat Datang di Aplikasi Kasir Jasa Cuci</h2>
+		  <div class="row">
 
-        <p>Halo <strong><?php echo $_SESSION['nama']; ?></strong>, Anda login sebagai
-			<strong>
-			<?php
-				if($_SESSION['level'] == 1){
-					echo 'Admin.';
-				} else {
-						echo 'Petugas Kasir.';
-				}
-			?>
-			</strong>
-		</p>
-      </div>
+			  <div class="col-md-8">
+				  <h2>Selamat Datang di Aplikasi Kasir Jasa Cuci</h2>
+		  
+				  <p>Halo <strong><?php echo $_SESSION['nama']; ?></strong>, Anda login sebagai
+					  <strong>
+					  <?php
+						  if($_SESSION['level'] == 1){
+							  echo 'Admin.';
+						  } else {
+								  echo 'Petugas Kasir.';
+						  }
+					  ?>
+					  </strong>
+				  </p>
+				</div>
+				<div class="col-md-4">
+					<img src="assets/image.jpg" class="img-responsive" alt="Responsive image" style="">
+				</div>
+		  </div>
+		  </div>
+	  <!-- <img src="assets/image.jpg" alt="" class="img-fluid"> -->
 	<?php
 	}
 	?>
